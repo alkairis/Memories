@@ -1,2 +1,4 @@
+password.txt
+mongodb.config.js
 /client/node_modules
 /server/node_modules
