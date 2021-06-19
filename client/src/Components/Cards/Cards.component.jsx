@@ -3,6 +3,7 @@ import Card  from './Card/Card.component'
 import useStyles from './styles'
 
 const Cards = () => {
+    const classes = useStyles();
     return (
         <>
             <Card/> 
