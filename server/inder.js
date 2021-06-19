@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 
 import postRoutes from './routes/post.js'
-
 import CONNECTION_URL from './models/mongodb.config.js'
 
 const app = express();
