@@ -1,7 +1,7 @@
 import React from 'react'
 import useStyles from './styles'
 
-const Card = () => {
+const Post = () => {
     const classes = useStyles();
     return (
         <>
@@ -10,4 +10,4 @@ const Card = () => {
     )
 }
 
-export default Card;
+export default Post;

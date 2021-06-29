@@ -1,17 +1,17 @@
 import React from 'react'
-import Card  from './Card/Card.component'
+import Post  from './Post/Post.component'
 import useStyles from './styles'
 import { useSelector } from 'react-redux'
 
-const Cards = () => {
+const Posts = () => {
     const classes = useStyles();
     const posts = useSelector((state) => state.posts)
     console.log(posts);
     return (
         <>
-            <Card/> 
+            <Post/> 
         </>
     )
 }
 
-export default Cards;
+export default Posts;
