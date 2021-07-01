@@ -24,7 +24,7 @@ export const createPosts = async (req, resp) => {
 export const updatePost = async (req, resp) => {
     const {id: _id} = req.params
     const post = req.body
-    if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send('No post with that id')
+    if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send(`No post exists with id : ${_id}`)
 
     const updatedPost =await PostMessage.findByIdAndUpdate(_id, {...post, _id}, {new: true})
 
@@ -33,8 +33,16 @@ export const updatePost = async (req, resp) => {
 
 export const deletePost = async(req, resp) =>{
     const {id: _id} = req.params
-    if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send('No post with that id')
+    if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send(`No post exists with id : ${_id}`)
     const deletedPost = await PostMessage.findByIdAndRemove(_id);
     resp.json(deletedPost)
+}
 
+export const likePost = async (req, resp) => {
+    const {id: _id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send(`No post exists with id : ${_id}`)
+
+    const post = await PostMessage.findById(_id)
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, {likeCount: post.likeCount+1}, {new: true})
+    resp.json(updatedPost)
 }

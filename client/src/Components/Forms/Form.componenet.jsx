@@ -95,7 +95,7 @@ const Form = ({currentId, setCurrentId}) => {
           variant="filled"
           fullWidth
           value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
           size="small"
         />
 

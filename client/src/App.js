@@ -27,11 +27,11 @@ const App = () =>{
             </AppBar>
             <Grow in>
                 <Container>
-                  <Grid container spacing={1} justify='space-between' alignItems='stretch'>
+                  <Grid className={classes.mainContainer} container spacing={3} justify='space-between' alignItems='stretch'>
                         <Grid item xs={12} sm={8}>
                             <Posts setCurrentId = {setCurrentId}/>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={4} style={{flexDirection: 'column-reverse'}}>
                             <Form currentId={currentId} setCurrentId={setCurrentId}/>
                         </Grid>
                     
