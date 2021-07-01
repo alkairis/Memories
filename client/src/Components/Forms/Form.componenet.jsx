@@ -1,12 +1,17 @@
 import { TextField, Button, Typography, Paper, Grow } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import FileBase from "react-file-base64";
 import {useDispatch} from 'react-redux'
-import { createPost } from "../../actions/posts";
+import { createPost, updatePost } from "../../actions/posts";
+import { useSelector } from 'react-redux'
+    
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
   const classes = useStyles();
+  const post = useSelector((state) => currentId ? state.posts.find((post) => post._id===currentId) : null);
+  const dispatch = useDispatch()
+
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -14,14 +19,31 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
-  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(post) setPostData(post)
+  }, [post])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(createPost(postData))
+    if(currentId)
+      dispatch(updatePost(currentId, postData))
+    else
+      dispatch(createPost(postData))
+
+    clear()
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    })
+    setCurrentId(null)
+  };
   return (
     <Paper className={classes.paper}>
       <form
@@ -31,7 +53,7 @@ const Form = () => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6" color="initial">
-          Creating a memory
+          {currentId ? 'Updating' : 'Creating'} a memory
         </Typography>
         <TextField
           id="creator"
@@ -78,13 +100,7 @@ const Form = () => {
         />
 
         <div className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={(base64) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
-          />
+        <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         </div>
 
         <Button
