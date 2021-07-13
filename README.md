@@ -7,8 +7,8 @@ One page application using MERN
 * express : 
 * mongoose : modulez for post
 * nodemon : for managing server
-* jwt-decode : for token based login json web tokens
-* react-google-login : for google login 
+* bcryptjs : for encryption
+* jsonwebtoken : for jwt
 
 ## client side
 * axios : for making api requests
@@ -16,6 +16,6 @@ One page application using MERN
 * react-file-base64 : to convert images
 * redux :  for state management
 * redux-thunk : async actions with redux
-* bcryptjs : for encryption
-* jsonwebtoken : for jwt
+* jwt-decode : for token based login json web tokens
+* react-google-login : for google login 
 
