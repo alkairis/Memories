@@ -3,7 +3,8 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
 
-import postRoutes from './routes/post.js'
+import postRoutes from './routes/post.route.js'
+import userRoutes from './routes/users.route.js'
 import dotenv from 'dotenv'
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes)
 
 app.get('/', (req, resp) => {
     resp.send('Welcome to alkairis')

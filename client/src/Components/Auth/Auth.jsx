@@ -10,10 +10,20 @@ import {
 } from "@material-ui/core";
 import { GoogleLogin } from "react-google-login";
 import {useDispatch} from 'react-redux'
+import {signin, signup} from '../../actions/auth'
+
 import UseStyles from "./Styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
 import Icon from './Icon'
+
+const initial = {
+  firstname : '',
+  lastname : '',
+  email: '',
+  password : '',
+  confirmpassword: ''
+}
 
 const Auth = () => {
   const classes = UseStyles();
@@ -22,9 +32,26 @@ const Auth = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const [formData, setformData] = useState(initial)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if(isSignUp){
+      dispatch(signup(formData, history))
+    }else{
+      dispatch(signin(formData, history))
+    }
+  };
+
+  const handleChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  };
+
   const handleShowPassword = () => setshowpassword((password) => !password);
+
   const switchmode = () => {
     setSignUp(!isSignUp);
     setshowpassword(false);
@@ -94,8 +121,8 @@ const Auth = () => {
             />
             {isSignUp && (
               <Input
-                id="cnfpassword"
-                name="cnfpassword"
+                id="confirmpassword"
+                name="confirmpassword"
                 label="Confirm Password"
                 type="password"
                 handleChange={handleChange}

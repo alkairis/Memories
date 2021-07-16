@@ -9,6 +9,7 @@ One page application using MERN
 * nodemon : for managing server
 * bcryptjs : for encryption
 * jsonwebtoken : for jwt
+* dotenv : for environmental variables
 
 ## client side
 * axios : for making api requests
