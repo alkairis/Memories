@@ -23,7 +23,8 @@ const Input = (props) => {
                 fullWidth
                 autoFocus={autoFocus}
                 type={type}
-                InputProps={name==='password' && {
+                size='small'
+                InputProps={name==='password' ? {
                     endAdornment : (
                         <InputAdornment position='end'>
                             <IconButton aria-label="show password" onClick={handleShowPassword}>
@@ -31,7 +32,7 @@ const Input = (props) => {
                             </IconButton>
                         </InputAdornment>
                     ) 
-                }}
+                } : null}
             />
         </Grid>
     )

@@ -1,6 +1,6 @@
-const CREATE = 'CREATE'
-const DELETE = 'DELETE'
-const FETCH_ALL = 'FETCH_ALL'
-const UPDATE = 'UPDATE'
-
-export {CREATE, DELETE, FETCH_ALL, UPDATE}
+export const CREATE = 'CREATE'
+export const DELETE = 'DELETE'
+export const FETCH_ALL = 'FETCH_ALL'
+export const UPDATE = 'UPDATE'
+export const AUTH = 'AUTH'
+export const LOGOUT = 'LOGOUT'
