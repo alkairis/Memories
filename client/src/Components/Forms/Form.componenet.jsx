@@ -11,9 +11,9 @@ const Form = ({currentId, setCurrentId}) => {
   const classes = useStyles();
   const post = useSelector((state) => currentId ? state.posts.find((post) => post._id===currentId) : null);
   const dispatch = useDispatch()
+  const user = JSON.parse(localStorage.getItem('profile'))
 
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -27,16 +27,15 @@ const Form = ({currentId, setCurrentId}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if(currentId)
-      dispatch(updatePost(currentId, postData))
+      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}))
     else
-      dispatch(createPost(postData))
+      dispatch(createPost({...postData, name: user?.result?.name}))
 
     clear()
   };
 
   const clear = () => {
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -44,6 +43,18 @@ const Form = ({currentId, setCurrentId}) => {
     })
     setCurrentId(null)
   };
+
+  if(!user?.result?.name){
+    return(
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own posts
+        </Typography>
+      </Paper>
+    )
+  }
+
+
   return (
     <Paper className={classes.paper}>
       <form
@@ -55,17 +66,6 @@ const Form = ({currentId, setCurrentId}) => {
         <Typography variant="h6" color="initial">
           {currentId ? 'Updating' : 'Creating'} a memory
         </Typography>
-        <TextField
-          id="creator"
-          label="Creator"
-          variant="filled"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-          size="small"
-        />
 
         <TextField
           id="title"
