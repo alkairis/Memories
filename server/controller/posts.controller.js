@@ -40,9 +40,18 @@ export const deletePost = async(req, resp) =>{
 
 export const likePost = async (req, resp) => {
     const {id: _id} = req.params
+    if(!req.userId) resp.status(400).json({message:'Unauthorised access'})
+
     if(!mongoose.Types.ObjectId.isValid(_id)) return resp.status(404).send(`No post exists with id : ${_id}`)
 
     const post = await PostMessage.findById(_id)
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, {likeCount: post.likeCount+1}, {new: true})
+    const index = post.likes.findIndex((id) => id===String(req.userId))
+    if(index===-1){
+        post.likes.push(req.userId)
+    }else{
+        post.likes = post.likes.filter((id) => id !==String(req.userId))
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {new: true})
     resp.json(updatedPost)
 }
