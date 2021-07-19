@@ -11,12 +11,12 @@ export const getPosts = async (req, resp) => {
 }
 
 export const getPostsBySearch = async (req, resp) => {
-    const {search, tags} = req.query;
+    const {searchQuery, tags} = req.query;
     try {
-        const title = new RegExp(search, 'i')
-        const posts = await PostMessage.find({$or: [{title}, {tags: {$in: tags.split(',')}}]})
-        console.log(posts)
-        resp.status(200).json({data:posts})
+        const title = new RegExp(searchQuery, "i");
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+
+        resp.status(200).json({data:posts, search: searchQuery, tags})
     } catch (error) {
         resp.status(404).json(error)
     }
