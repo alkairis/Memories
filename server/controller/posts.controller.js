@@ -10,6 +10,17 @@ export const getPosts = async (req, resp) => {
     }
 }
 
+export const getPostsBySearch = async (req, resp) => {
+    const {search, tags} = req.query;
+    try {
+        const title = new RegExp(search, 'i')
+        const posts = await PostMessage.find({$or: [{title}, {tags: {$in: tags.split(',')}}]})
+        console.log(posts)
+        resp.status(200).json({data:posts})
+    } catch (error) {
+        resp.status(404).json(error)
+    }
+}
 export const createPosts = async (req, resp) => {
     const post = req.body;
     const newPost = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()});
@@ -55,3 +66,4 @@ export const likePost = async (req, resp) => {
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {new: true})
     resp.json(updatedPost)
 }
+
