@@ -42,7 +42,7 @@ const Home = () => {
     const handleDelete = (Deletetag) => settags(tags.filter((tag) => tag!==Deletetag))
 
     const searchPost = () =>{
-        if(search.trim()){
+        if(search.trim() || tags){
             dispatch(getPostBySearch({search, tags:tags.join(',')}))
         }else{
             history.push('/')
