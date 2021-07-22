@@ -8,7 +8,7 @@ import useStyles from './Styles'
 const Paginate = ({page}) =>{
     const classes = useStyles();
     const dispatch = useDispatch()
-    const {noofPages} = useSelector((state) => state.posts)
+    const {numberofPages} = useSelector((state) => state.posts)
     useEffect(()=>{
         if(page){
             dispatch(getPosts(page))
@@ -17,7 +17,7 @@ const Paginate = ({page}) =>{
     return (
         <Pagination 
             classes={{ul: classes.ul}}
-            count={noofPages}
+            count={numberofPages}
             page={Number(page)||1}
             variant="outlined"
             color="primary"
