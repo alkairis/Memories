@@ -7,7 +7,7 @@ import ChipInput from 'material-ui-chip-input'
 import Form from '../Forms/Form.componenet'
 import Posts from '../Posts/Posts.component'
 import useStyles from './styles'
-import { getPosts, getPostBySearch } from '../../actions/posts'
+import { getPostBySearch } from '../../actions/posts'
 import Paginate from '../Pagination/Pagination'
 
 function useQuery() {
@@ -18,10 +18,10 @@ const Home = () => {
 
     const classes = useStyles();
     const [currentId, setCurrentId] = useState(null)
-    const dispatch = useDispatch(getPosts())
+    const dispatch = useDispatch()
     const query = useQuery()
     const history = useHistory()
-    const page = query.get('page')
+    const page = query.get('page') || 1
     const searchQuery = query.get('searchQuery')
     const [search, setSearch] = useState('')
     const [tags, settags] = useState([])

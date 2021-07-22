@@ -5,8 +5,8 @@ import {CREATE, DELETE, FETCH_ALL, UPDATE, FETCH_BY_SEARCH} from '../Constants/C
 export const getPosts = (page) => async(dispatch) =>  {
     try {
         const {data} = await api.fetchPosts(page);
-        const action = {type: FETCH_ALL, payload: data}
         console.log(data)
+        const action = {type: FETCH_ALL, payload: data}
         dispatch(action);
     } catch (error) {
         console.log(error);

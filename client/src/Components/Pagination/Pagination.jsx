@@ -8,12 +8,11 @@ import useStyles from './Styles'
 const Paginate = ({page}) =>{
     const classes = useStyles();
     const dispatch = useDispatch()
-
     useEffect(()=>{
         if(page){
             dispatch(getPosts(page))
         }
-    }, [])
+    }, [page])
     return (
         <Pagination 
             classes={{ul: classes.ul}}

@@ -3,7 +3,12 @@ import { CREATE, DELETE, FETCH_ALL, UPDATE, FETCH_BY_SEARCH } from '../Constants
 export default (state = [], action) => {
     switch (action.type) {
         case FETCH_ALL:
-            return { ...state, posts: action.payload.data, currentPage: action.payload.currentPage, numberofPages: action.payload.numberofPages };
+            return { 
+                ...state, 
+                posts: action.payload.data, 
+                currentPage: action.payload.currentPage, 
+                numberofPages: action.payload.numberofPages 
+            };
         case FETCH_BY_SEARCH:
             return { ...state, posts: action.payload };
         case CREATE:
