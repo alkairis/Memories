@@ -10,7 +10,7 @@ import moment from "moment";
 import { useHistory, useParams } from "react-router-dom";
 import useStyles from "./styles";
 
-import {getPost} from '../../actions/post'
+import {getPost} from '../../actions/posts'
 
 const PostDetails = () => {
   const classes = useStyles();
