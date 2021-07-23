@@ -54,12 +54,17 @@ const Post = (props) => {
   };
 
   const openPost = () => {
-    history.push(`/posts/${post.id}`)
+    history.push(`/posts/${post._id}`)
   }
 
   return (
     <Card className={classes.card} raised elevation={6}>
-      <ButtonBase className={classes.cardActions} onClick={openPost}>
+      <ButtonBase
+        component="span"
+        name="test"
+        className={classes.cardAction}
+        onClick={openPost}
+      >
         <CardMedia
           className={classes.media}
           title={post.title}
