@@ -4,6 +4,7 @@ import {
   Paper,
   CircularProgress,
   Divider,
+  Grid
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -33,8 +34,8 @@ const PostDetails = () => {
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
-      <div className={classes.card}>
-        <div className={classes.section}>
+      <Grid container className={classes.card}>
+        <Grid item sm={12} md={12} lg={6} className={classes.section}>
           <Typography variant="h3" component="h2">
             {post.title}
           </Typography>
@@ -62,8 +63,8 @@ const PostDetails = () => {
             <strong>Comments - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
-        </div>
-        <div className={classes.imageSection}>
+        </Grid>
+        <Grid item sm={12} md={12} lg={6} className={classes.imageSection}>
           <img
             className={classes.media}
             src={
@@ -72,8 +73,8 @@ const PostDetails = () => {
             }
             alt={post.title}
           />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
       /**RecommendedPosts */
     </Paper>
