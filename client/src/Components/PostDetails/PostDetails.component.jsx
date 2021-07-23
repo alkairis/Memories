@@ -26,7 +26,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     if(post){
-      dispatch(getPostBySearch({search: 'none', tags: post?.tags.join(',')}))
+      dispatch(getPostBySearch({searchQuery: 'none', tags: post?.tags.join(',')}))
     }
   }, [post])
 
@@ -39,7 +39,8 @@ const PostDetails = () => {
   )
 
   const recommendedPosts = posts.filter(({_id})=>_id!==post._id)
-    const openPost = (_id) => history.push(`posts/${_id}`)
+  const openPost = (_id) => history.push(`/posts/${_id}`)
+
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <Grid container className={classes.card}>
