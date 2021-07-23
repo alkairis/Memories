@@ -1,5 +1,5 @@
 
-import { CREATE, DELETE, FETCH_ALL, UPDATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../Constants/Constants'
+import { CREATE, DELETE, FETCH_ALL, UPDATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../Constants/Constants'
 export default (state = {isLoading:true, posts: []}, action) => {
     switch (action.type) {
         case START_LOADING:
@@ -13,6 +13,11 @@ export default (state = {isLoading:true, posts: []}, action) => {
                 currentPage: action.payload.currentPage, 
                 numberofPages: action.payload.numberofPages 
             };
+        case FETCH_POST : 
+            return {
+                ...state,
+                post : action.payload
+            }
         case FETCH_BY_SEARCH:
             return { ...state, posts: action.payload };
         case CREATE:

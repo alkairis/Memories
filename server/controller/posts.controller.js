@@ -15,6 +15,16 @@ export const getPosts = async (req, resp) => {
     }
 }
 
+export const getPost = async(req, resp) => {
+    const {id} = req.params;
+    try {
+        const post = await PostMessage.findById(id);
+        resp.status(200).json(post)
+    } catch (error) {
+        resp.status(404).json({message: error.message});
+    }
+}
+
 export const getPostsBySearch = async (req, resp) => {
     const {searchQuery, tags} = req.query;
     try {
