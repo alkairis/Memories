@@ -11,7 +11,7 @@ import moment from "moment";
 import { useHistory, useParams } from "react-router-dom";
 import useStyles from "./styles";
 
-import {getPost} from '../../actions/posts'
+import {getPost, getPostBySearch} from '../../actions/posts'
 
 const PostDetails = () => {
   const classes = useStyles();
@@ -24,6 +24,12 @@ const PostDetails = () => {
     dispatch(getPost(id))
   }, [id])
 
+  useEffect(() => {
+    if(post){
+      dispatch(getPostBySearch({search: 'none', tags: post?.tags.join(',')}))
+    }
+  }, [post])
+
   if(!post) return null
 
   if(isLoading) return(
@@ -32,10 +38,12 @@ const PostDetails = () => {
     </Paper>
   )
 
+  const recommendedPosts = posts.filter(({_id})=>_id!==post._id)
+    const openPost = (_id) => history.push(`posts/${_id}`)
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <Grid container className={classes.card}>
-        <Grid item sm={12} md={12} lg={6} className={classes.section}>
+        <Grid item sm={12} md={12} lg={7} className={classes.section}>
           <Typography variant="h3" component="h2">
             {post.title}
           </Typography>
@@ -64,7 +72,7 @@ const PostDetails = () => {
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
         </Grid>
-        <Grid item sm={12} md={12} lg={6} className={classes.imageSection}>
+        <Grid item sm={12} md={12} lg={5} className={classes.imageSection}>
           <img
             className={classes.media}
             src={
@@ -76,7 +84,26 @@ const PostDetails = () => {
         </Grid>
       </Grid>
 
-      /**RecommendedPosts */
+      {recommendedPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant='h6'>
+            You might also like
+          </Typography>
+          <Divider/>
+
+          <div className={classes.recommendedPosts}>
+            {recommendedPosts.map(({title, message, name, likes, selectedFile, _id}) => (
+              <div style={{margin: '20px', cursor: 'pointer'}} onClick={() => openPost(_id)} key={_id}>
+                <Typography gutterBottom variant='h6'>{title}</Typography>
+                <Typography gutterBottom variant='subtitle2'>{name}</Typography>
+                <Typography gutterBottom variant='subtitle2'>{message}</Typography>
+                <Typography gutterBottom variant='subtitle1'>Likes {likes.length}</Typography>
+                <img src={selectedFile} width='250px'/>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </Paper>
   );
 };
